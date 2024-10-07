@@ -1,6 +1,9 @@
 # Author: Leah In
-# Last Updated: 3/8/21
-# Description: implementation of the 9x9 Sudoku. The program checks whether sudoku is solved or not.
+# Last Updated: 10/6/24
+# Description: an implementation of a 9x9 Sudoku puzzle.
+#              The program prompts users to initiate auto solve a given sudoku puzzle
+#              by using the backtracking algorithm. Or, users can select option to
+#              solve the puzzle manually.
 
 
 class Sudoku:
@@ -296,7 +299,7 @@ class Sudoku:
 
 if __name__ == '__main__':
 
-    preset = [['', '9', '', '', '', '', '', '', ''],
+    puzzle1 = [['', '9', '', '', '', '', '', '', ''],
               ['2', '1', '', '', '', '', '', '5', '7'],
               ['7', '5', '3', '2', '', '', '', '6', '1'],
               ['', '', '7', '', '9', '', '1', '3', '6'],
@@ -306,7 +309,7 @@ if __name__ == '__main__':
               ['', '', '', '7', '', '6', '', '', ''],
               ['', '', '4', '', '8', '', '', '1', '']]
 
-    solution = [['4', '9', '6', '1', '7', '5', '3', '2', '8'],
+    solution1 = [['4', '9', '6', '1', '7', '5', '3', '2', '8'],
                 ['2', '1', '8', '3', '6', '9', '4', '5', '7'],
                 ['7', '5', '3', '2', '4', '8', '9', '6', '1'],
                 ['8', '2', '7', '5', '9', '4', '1', '3', '6'],
@@ -316,7 +319,7 @@ if __name__ == '__main__':
                 ['1', '8', '5', '7', '3', '6', '2', '9', '4'],
                 ['3', '7', '4', '9', '8', '2', '6', '1', '5']]  # solution to preset_1
 
-    sample_1 = [['4', '3', '5', '2', '6', '9', '7', '8', '1'],
+    unsolvable1 = [['4', '3', '5', '2', '6', '9', '7', '8', '1'],
                 ['6', '8', '2', '5', '7', '1', '4', '9', '3'],
                 ['1', '9', '7', '8', '3', '4', '5', '6', '2'],
                 ['8', '2', '6', '1', '9', '5', '3', '4', '7'],
@@ -326,7 +329,7 @@ if __name__ == '__main__':
                 ['2', '4', '8', '9', '5', '7', '1', '3', '6'],
                 ['7', '6', '3', '4', '1', '8', '2', '5', '9']]  # not solved. column/row check failed
 
-    sample_2 = [['4', '3', '5', '2', '6', '9', '7', '8', '1'],
+    unsolvable2 = [['4', '3', '5', '2', '6', '9', '7', '8', '1'],
                 ['9', '5', '1', '7', '4', '3', '6', '2', '8'],
                 ['6', '8', '2', '5', '7', '1', '4', '9', '3'],
                 ['1', '9', '7', '8', '3', '4', '5', '6', '2'],
@@ -336,7 +339,7 @@ if __name__ == '__main__':
                 ['2', '4', '8', '9', '5', '7', '1', '3', '6'],
                 ['7', '6', '3', '4', '1', '8', '2', '5', '9']]  # not solved. section check failed
 
-    sample_3 = [['4', '', '', '', '', '', '', '1', ''],
+    puzzle2 = [['4', '', '', '', '', '', '', '1', ''],
                 ['', '1', '5', '', '4', '', '6', '', ''],
                 ['', '', '', '', '', '7', '', '', ''],
                 ['', '', '', '2', '1', '', '', '', '8'],
@@ -356,11 +359,31 @@ if __name__ == '__main__':
                   ['', '', '', '', '', '', '', '', ''],
                   ['', '', '', '', '', '', '', '', '']]
 
-    # add sudoku board here.
+    # add more presets below.
+
+    # select the set
+    print("There are 5 samples of sudoku presets.")
+    print("1. puzzle 1")
+    print("2. puzzle 2")
+    print("3. unsolvable1 - a complete set")
+    print("4. unsolvable2 - a complete set")
+    print("5. solution1 - a complete set")
+    preset = -1
+    while not(0 < int(preset) < 6):
+        preset = int(input("Please select a set from the list above: "))
+        if not(0 < preset< 6):
+            print("Please enter a number between 1 and 5.")
+    
+    preset_map = {
+        1: puzzle1,
+        2: puzzle2,
+        3: unsolvable1,
+        4: unsolvable2,
+        5: solution1
+    }
+    puzzle = Sudoku(preset_map[preset])
 
     # start sudoku
-    puzzle = Sudoku(preset)  # change board here.
-
     print("=" * 20)
     print("Puzzle #23: Sudoku")
     print("=" * 20)
@@ -374,9 +397,9 @@ if __name__ == '__main__':
         while puzzle.get_num_empty_cell() != 0:
             user_input_is_valid = False
             while not user_input_is_valid:
-                row = int(input("Enter a row number between 1 and 9: "))
-                col = int(input("Enter a column number between 1 and 9: "))
-                num = int(input("Enter a number between 1 and 9: "))
+                row = int(input("Enter row (1-9): "))
+                col = int(input("Enter column (1-9): "))
+                num = int(input("Enter number (1-9): "))
                 user_input_is_valid = puzzle.place_on_board(row, col, num)
             puzzle.draw_board()
         puzzle.verify_solution()

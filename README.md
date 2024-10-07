@@ -16,5 +16,10 @@ git clone https://github.com/leahinosu/Sudoku-Solver
 ```
 python sudoku.py
 ```
-
-3. When prompted to run the solver, enter 'y' to initiate the solver.
+3. When prompted, select a set between number 1 to number 5:
+Some presets are completed for testing the solver.
+![image](https://github.com/user-attachments/assets/73cadb89-024f-4512-b772-3e3e729dd671)
+   
+4. Next, enter 'y' to initiate the solver.
+Selecting 'n' will let users to manually solve the puzzle.
+![image](https://github.com/user-attachments/assets/7a895b22-ba30-4d40-b1eb-1e58aeb3dcc2)
